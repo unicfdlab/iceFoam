@@ -1,0 +1,120 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v1912                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      binary;
+    class       polyBoundaryMesh;
+    arch        "LSB;label=32;scalar=64";
+    location    "0/polyMesh";
+    object      boundary;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+11
+(
+    front
+    {
+        type            empty;
+        physicalType    patch;
+        inGroups        1(empty);
+        nFaces          1032;
+        startFace       1997;
+    }
+    inlet
+    {
+        type            patch;
+        physicalType    patch;
+        nFaces          0;
+        startFace       3029;
+    }
+    back
+    {
+        type            empty;
+        physicalType    patch;
+        inGroups        1(empty);
+        nFaces          1032;
+        startFace       3029;
+    }
+    top
+    {
+        type            patch;
+        physicalType    patch;
+        nFaces          30;
+        startFace       4061;
+    }
+    bottom
+    {
+        type            patch;
+        physicalType    patch;
+        nFaces          0;
+        startFace       4091;
+    }
+    cylinderback
+    {
+        type            wall;
+        physicalType    patch;
+        inGroups        1(wall);
+        nFaces          0;
+        startFace       4091;
+    }
+    outlet
+    {
+        type            patch;
+        physicalType    patch;
+        nFaces          0;
+        startFace       4091;
+    }
+    region0_to_wallFilmRegion_wallFilmFaces
+    {
+        type            mappedWall;
+        inGroups        2(wall mappedPatch);
+        nFaces          0;
+        startFace       4091;
+        sampleMode      nearestPatchFace;
+        sampleRegion    wallFilmRegion;
+        samplePatch     region0_to_wallFilmRegion_wallFilmFaces;
+        offsetMode      nonuniform;
+        offsets         nonuniform 0;
+    }
+    procBoundary10to6
+    {
+        type            processor;
+        inGroups        1(processor);
+        nFaces          33;
+        startFace       4091;
+        matchTolerance  0.0001;
+        transform       unknown;
+        myProcNo        10;
+        neighbProcNo    6;
+    }
+    procBoundary10to9
+    {
+        type            processor;
+        inGroups        1(processor);
+        nFaces          37;
+        startFace       4124;
+        matchTolerance  0.0001;
+        transform       unknown;
+        myProcNo        10;
+        neighbProcNo    9;
+    }
+    procBoundary10to11
+    {
+        type            processor;
+        inGroups        1(processor);
+        nFaces          34;
+        startFace       4161;
+        matchTolerance  0.0001;
+        transform       unknown;
+        myProcNo        10;
+        neighbProcNo    11;
+    }
+)
+
+// ************************************************************************* //
