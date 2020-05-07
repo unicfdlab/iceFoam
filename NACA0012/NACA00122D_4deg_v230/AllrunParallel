@@ -1,0 +1,18 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # Run from this directory
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+rm log.decomposePar*
+rm log.reactingParcelSWIMFoam
+rm log.reconstructPar
+
+runApplication -s 1 decomposePar
+runApplication -s 2 decomposePar -region wallFilmRegion
+
+runParallel $(getApplication)
+
+runApplication reconstructPar -newTimes
+runApplication reconstructPar -region wallFilmRegion
+
