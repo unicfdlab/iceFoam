@@ -1,0 +1,88 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v1912                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      binary;
+    class       volScalarField;
+    arch        "LSB;label=32;scalar=64";
+    location    "0";
+    object      p_rgh;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [1 -1 -2 0 0 0 0];
+
+
+internalField   uniform 100000;
+
+boundaryField
+{
+    front
+    {
+        type            empty;
+    }
+    inlet
+    {
+        type            fixedFluxPressure;
+        gradient        uniform 0;
+        value           uniform 100000;
+    }
+    back
+    {
+        type            empty;
+    }
+    top
+    {
+        type            fixedFluxPressure;
+        gradient        nonuniform 0;
+        value           nonuniform 0;
+    }
+    bottom
+    {
+        type            fixedFluxPressure;
+        gradient        nonuniform 0;
+        value           nonuniform 0;
+    }
+    cylinderback
+    {
+        type            fixedFluxPressure;
+        gradient        nonuniform 0;
+        value           nonuniform 0;
+    }
+    outlet
+    {
+        type            fixedFluxPressure;
+        gradient        nonuniform 0;
+        value           nonuniform 0;
+    }
+    region0_to_wallFilmRegion_wallFilmFaces
+    {
+        type            fixedFluxPressure;
+        gradient        nonuniform 0;
+        value           nonuniform 0;
+    }
+    procBoundary4to0
+    {
+        type            processor;
+        value           uniform 100000;
+    }
+    procBoundary4to5
+    {
+        type            processor;
+        value           uniform 100000;
+    }
+    procBoundary4to8
+    {
+        type            processor;
+        value           uniform 100000;
+    }
+}
+
+
+// ************************************************************************* //

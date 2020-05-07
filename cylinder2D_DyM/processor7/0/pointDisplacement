@@ -1,0 +1,79 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v1912                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      binary;
+    class       pointVectorField;
+    arch        "LSB;label=32;scalar=64";
+    location    "0";
+    object      pointDisplacement;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 1 0 0 0 0 0];
+
+
+internalField   uniform (0 0 0);
+
+boundaryField
+{
+    front
+    {
+        type            empty;
+    }
+    inlet
+    {
+        type            fixedValue;
+        value           nonuniform 0;
+    }
+    back
+    {
+        type            empty;
+    }
+    top
+    {
+        type            fixedValue;
+        value           nonuniform 0;
+    }
+    bottom
+    {
+        type            fixedValue;
+        value           nonuniform 0;
+    }
+    cylinderback
+    {
+        type            fixedValue;
+        value           nonuniform 0;
+    }
+    outlet
+    {
+        type            fixedValue;
+        value           uniform (0 0 0);
+    }
+    region0_to_wallFilmRegion_wallFilmFaces
+    {
+        type            fixedValue;
+        value           nonuniform 0;
+    }
+    procBoundary7to3
+    {
+        type            processor;
+    }
+    procBoundary7to6
+    {
+        type            processor;
+    }
+    procBoundary7to11
+    {
+        type            processor;
+    }
+}
+
+
+// ************************************************************************* //
