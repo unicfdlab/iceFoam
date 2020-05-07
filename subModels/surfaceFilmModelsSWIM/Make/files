@@ -1,0 +1,4 @@
+/* Surface film models */
+SWIMIILayer/SWIMIILayer.C
+
+LIB = $(FOAM_USER_LIBBIN)/libsurfaceFilmModelsSWIM
