@@ -1,5 +1,7 @@
 # iceFoam
 
+UniCFD lab solver for ice accretion simulation.
+
 Current status of folders and files.
 
 ├── iceFoam - solver

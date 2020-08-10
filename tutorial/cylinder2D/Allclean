@@ -1,0 +1,10 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # Run from this directory
+
+# Clean time directories only
+
+cleanTimeDirectories
+rm -rf postProcessing
+rm -f log.*
+
+#------------------------------------------------------------------------------

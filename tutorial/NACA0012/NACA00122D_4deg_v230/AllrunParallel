@@ -5,7 +5,7 @@ cd ${0%/*} || exit 1    # Run from this directory
 . $WM_PROJECT_DIR/bin/tools/RunFunctions
 
 rm log.decomposePar*
-rm log.reactingParcelSWIMFoam
+rm log.iceFoam
 rm log.reconstructPar
 
 runApplication -s 1 decomposePar
