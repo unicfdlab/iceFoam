@@ -1,7 +1,7 @@
 Info<< "\nConstructing reacting cloud" << endl;
 basicReactingMultiphaseCloud parcels
 (
-    "reactingCloud1",
+    "iceFoamCloud",
     rho,
     U,
     g,

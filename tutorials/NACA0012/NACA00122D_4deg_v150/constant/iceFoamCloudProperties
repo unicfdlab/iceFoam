@@ -66,7 +66,10 @@ subModels
 {
     particleForces
     {
-        sphereDrag;
+        SphereChooseCdDrag
+        {
+            CdType Putnam; //Putnam; Habashi; Prihodko; Gent; Ochkov; ShillerNeyman;
+        }
         gravity;
     }
 
@@ -76,12 +79,12 @@ subModels
         {
             type            reactingMultiphaseLookupTableInjection;
             inputFile       "parcelInjectionProperties";
-            massTotal       23.79;
+            massTotal       24.13;
             parcelBasisType mass;
             SOI             0;
             inputFile       "parcelInjectionProperties";
-            duration        420.0;
-            parcelsPerSecond 1260;
+            duration        360.0;
+            parcelsPerSecond 720;
             randomise       true;
 //            sizeDistribution
 //	    {
@@ -101,7 +104,12 @@ subModels
 
     patchInteractionModel standardWallInteraction;
 
-    heatTransferModel none;
+    heatTransferModel RanzMarshall; //Clift; Feng; RanzMarshall; Whitaker; none;
+
+    RanzMarshallCoeffs //CliftCoeffs FengCoeffs WhitakerCoeffs
+    {
+	BirdCorrection  false;
+    }
 
     compositionModel singleMixtureFraction;
 
