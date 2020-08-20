@@ -291,9 +291,24 @@ void SWIMIILayer::updateSubmodels()
 
         // Heat-transfer to the wall
       - fvm::Sp(htcw_->h()/Cp_, hs)
-      + htcw_->h()*(hs/Cp_ + alpha_*(Tw_- T_))
+//      + htcw_->h()*(hs/Cp_ + alpha_*(Tw_- T_))
+//      + htcw_->h()*(hs/Cp_ + (TPrimary_ - T_))
     );
 }
+
+/*tmp<volScalarField> SWIMIILayer::qq(volScalarField& hs) const
+{
+    volScalarField r = htcw_->h()*(hs/Cp_ + (TPrimary_ - T_));
+    forAll(r, i)
+    {
+	if (deltaIce_[i]<0.0001)
+	{
+	  r[i] = 0.0;
+	}
+    }
+    return (r+htcs_->h()*(hs/Cp_ + alpha_*(TPrimary_ - T_)));
+}*/
+
 
 void SWIMIILayer::solveContinuity()
 {
@@ -428,9 +443,19 @@ void SWIMIILayer::solveEnergy()
     Info<<"min, max zna "<<gMin(zna)<<", "<<gMax(zna)<<nl;
     Info<<"min, max imp "<<gMin(imp)<<", "<<gMax(imp)<<nl;
 */
+    volScalarField r = htcw_->h()*(hs_/Cp_ + (TPrimary_ - T_));
+    forAll(r, i)
+    {
+	if (deltaIce_[i]<0.0001)
+	{
+	  r[i] = 0.0;
+	}
+    }
+
     iceSp_=(
         - hsSp_
 	+ (q(hs_) & hs_) 
+	+ r
         + radiation_->Shs()
 	- impSp_ * Cp_ * (TParcels_-Tf_)
         +  rhoSp_ * hs_
@@ -468,76 +493,7 @@ SWIMIILayer::SWIMIILayer
     const bool readFields
 )
 :
-    thermoSingleLayer(modelType, mesh, g, regionType, false),
-    Tf_
-    (
-        IOobject
-        (
-            "Tf_",
-            time().timeName(),
-            regionMesh(),
-            IOobject::NO_READ,
-            IOobject::NO_WRITE
-        ),
-        regionMesh(),
-        dimensionedScalar("Tf_", dimTemperature, 273.16),
-        zeroGradientFvPatchScalarField::typeName
-    ),
-    Lf_("Lf_", dimensionSet(0, 2,-2,0,0,0,0), readScalar(coeffs_.lookup("Lf"))),
-    rhoIce_("rhoIce_", dimensionSet(1,-3,0,0,0,0,0), readScalar(coeffs_.lookup("rhoIce"))),
-    iceSp_
-    (
-        IOobject
-        (
-            "iceSpf",
-            time().timeName(),
-            regionMesh(),
-            IOobject::NO_READ,
-            IOobject::NO_WRITE
-        ),
-        regionMesh(),
-        dimensionedScalar(dimMass/dimTime/dimArea, Zero),
-        zeroGradientFvPatchScalarField::typeName
-    ),
-    deltaIce_
-    (
-        IOobject
-        (
-            "deltaIcef",
-            time().timeName(),
-            regionMesh(),
-            IOobject::MUST_READ,
-            IOobject::AUTO_WRITE
-        ),
-        regionMesh()
-    ),
-    TParcels_
-    (
-        IOobject
-        (
-            "TParcels", // Same name as T on primary region to enable mapping
-            time().timeName(),
-            regionMesh(),
-            IOobject::NO_READ,
-            IOobject::NO_WRITE
-        ),
-        regionMesh(),
-        dimensionedScalar(dimTemperature, Zero),
-        this->mappedFieldAndInternalPatchTypes<scalar>()
-    ),
-    impSp_
-    (
-        IOobject
-        (
-            "impSpf",
-            time_.timeName(),
-            regionMesh(),
-            IOobject::NO_READ,
-            IOobject::NO_WRITE
-        ),
-        regionMesh(),
-        dimensionedScalar(dimMass/dimTime/dimArea, Zero)
-    )
+    iceSingleLayer(modelType, mesh, g, regionType, false)
 {
     if (coeffs().readIfPresent("Tmin", Tmin_))
     {
@@ -665,7 +621,7 @@ void SWIMIILayer::preEvolveRegion()
     primaryEnergyTrans_ == dimensionedScalar(dimEnergy, Zero);
 }
 
-
+/*
 void SWIMIILayer::evolveRegion()
 {
     if (debug)
@@ -709,8 +665,9 @@ void SWIMIILayer::evolveRegion()
 
     // Update temperature using latest hs_
 //    T_ == T(hs_);
-}
 
+}
+*/
 
 const volScalarField& SWIMIILayer::Cp() const
 {

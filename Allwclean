@@ -8,6 +8,7 @@ cd ../../subModels/particlesLib
 wclean
 cd ../../iceFoam
 wclean
-
+cd iceDyMFoam
+wmake
 
 # ----------------------------------------------------------------- end-of-file

@@ -1,10 +1,18 @@
-#PBS -l walltime=240:30:00,nodes=1:ppn=12
+#!/bin/sh
+cd ${0%/*} || exit 1    # Run from this directory
 
-rm -rf log
-#decomposePar | tee -a log
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
 
-mpirun -np 12 -machinefile $PBS_NODEFILE iceFoam -parallel >log 2>&1
+rm log.decomposePar*
+rm log.iceFoam
+rm log.reconstructPar
 
+runApplication -s 1 decomposePar
+runApplication -s 2 decomposePar -region wallFilmRegion
 
+runParallel $(getApplication)
 
+runApplication -s 1 reconstructPar -newTimes
+runApplication -s 2 reconstructPar -region wallFilmRegion
 

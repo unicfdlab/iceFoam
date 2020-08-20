@@ -8,6 +8,10 @@ rm log.decomposePar*
 rm log.iceFoam
 rm log.reconstructPar
 
+#Создаем сетку
+./createMesh
+
+
 runApplication -s 1 decomposePar
 runApplication -s 2 decomposePar -region wallFilmRegion
 

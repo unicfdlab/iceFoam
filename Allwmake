@@ -8,4 +8,6 @@ cd ../../subModels/particlesLib
 wmake
 cd ../../iceFoam
 wmake
+cd iceDyMFoam
+wmake
 # ----------------------------------------------------------------- end-of-file
