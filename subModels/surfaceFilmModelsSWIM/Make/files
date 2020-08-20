@@ -1,4 +1,5 @@
 /* Surface film models */
 SWIMIILayer/SWIMIILayer.C
+iceSingleLayer/iceSingleLayer.C
 
 LIB = $(FOAM_USER_LIBBIN)/libsurfaceFilmModelsSWIM

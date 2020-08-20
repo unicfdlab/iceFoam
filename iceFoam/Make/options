@@ -1,6 +1,7 @@
 EXE_INC = \
     -I. \
     -I../iceFoam \
+    -I../subModels/particlesLib/lnInclude \
     -I$(LIB_SRC)/finiteVolume/lnInclude \
     -I$(LIB_SRC)/sampling/lnInclude \
     -I$(LIB_SRC)/meshTools/lnInclude \
@@ -46,4 +47,5 @@ EXE_LIBS = \
     -llagrangianIntermediate \
     -llagrangianTurbulence \
     -lODE \
-    -lcombustionModels
+    -lcombustionModels \
+    -lIceFoamParticles

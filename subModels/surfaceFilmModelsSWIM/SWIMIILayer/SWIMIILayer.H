@@ -43,6 +43,7 @@ SourceFiles
 
 #include "kinematicSingleLayer.H"
 #include "thermoSingleLayer.H"
+#include "iceSingleLayer.H"
 #include "SLGThermo.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -66,7 +67,7 @@ class filmRadiationModel;
 
 class SWIMIILayer
 :
-    public thermoSingleLayer
+    public iceSingleLayer
 {
     // Private member functions
 
@@ -83,29 +84,6 @@ class SWIMIILayer
 protected:
 
     // Protected data
-	// SWIM model
-	    
-	    // Freesing temperature [K]
-	    volScalarField Tf_;
-           
-	    // Fusion latent heat of ice
-	    dimensionedScalar Lf_;
-           
-	    // Density of ice
-	    dimensionedScalar rhoIce_;
-
-            //- Ice mass [kg/m2/s]
-            volScalarField iceSp_;
-	    
-            //- Ice thickness [m]
-            volScalarField deltaIce_;
-
-	    //- Imp temperature of parcels [K] 
-	    volScalarField TParcels_;
-
-	    //-Imp mass [kg/m2/s]
-	    volScalarField impSp_;
-
     // Protected member functions
 
         //- Solve continuity equation
@@ -148,6 +126,7 @@ protected:
 
         //- Return the wall/surface heat transfer term for the enthalpy equation
         virtual tmp<fvScalarMatrix> q(volScalarField& hs) const;
+//        virtual tmp<volScalarField> qq(volScalarField& hs) const;
 
 
         // Equations
@@ -301,7 +280,7 @@ public:
             virtual void preEvolveRegion();
 
             //- Evolve the film equations
-            virtual void evolveRegion();
+//            virtual void evolveRegion();
 
 
         // Source fields
